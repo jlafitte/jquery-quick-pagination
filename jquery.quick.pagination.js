@@ -10,11 +10,11 @@
 (function ($) {
     $.fn.quickPagination = function (options) {
         var defaults = {
-            pageSize: 10,			// How many items you want to show per page.
-            currentPage: 1,			// Starting page... normally you would probably leave this alone.
-            holder: null,			// Container to place the navigation
-            pagerLocation: "after"	// possible values are "before,after,both"
-            pagerType: "numbers"	// possible values are "numbers,backNext,both"
+            pageSize: 10,	// How many items you want to show per page.
+            currentPage: 1,	// Starting page... normally you would probably leave this alone.
+            holder: null,	// Container to place the navigation.
+            pagerLocation: "after",	// possible values are "before,after,both".  Will not do anything if you specified a container in the holder option.
+            transitionSpeed: null // Changes the speed items are faded in and out.  If left null then no transitions will happen.
         };
         var options = $.extend(defaults, options);
         return this.each(function () {
@@ -61,18 +61,24 @@
             } else {
                 $(options.holder).append(pageNav);
             }
-            selector.parent().find(".simplePagerNav a").click(function () {
+            selector.parent().find(".simplePagerNav a").click(function (e) {
+            	e.preventDefault(); // keeps the page from jumping around by ignoring the #
                 var clickedLink = $(this).attr("rel");
                 options.currentPage = clickedLink;
-                if (options.holder) {
-                    $(this).parent("li").parent("ul").parent(options.holder).find("li.currentPage").removeClass("currentPage");
-                    $(this).parent("li").parent("ul").parent(options.holder).find("a[rel='" + clickedLink + "']").parent("li").addClass("currentPage");
-                } else {
-                    $(this).parent("li").parent("ul").parent(".simplePagerContainer").find("li.currentPage").removeClass("currentPage");
-                    $(this).parent("li").parent("ul").parent(".simplePagerContainer").find("a[rel='" + clickedLink + "']").parent("li").addClass("currentPage");
-                }
+
+                var container = options.holder ? options.holder : ".simplePagerContainer"
+                
+                $(this).parents(container).find("li.currentPage").removeClass("currentPage");
+                $(this).parents(container).find("a[rel='" + clickedLink + "']").parent("li").addClass("currentPage");
+
                 selector.children().hide();
-                selector.find(".simplePagerPage" + clickedLink).fadeIn('fast');
+                
+                if (options.transitionSpeed) {
+                	selector.find(".simplePagerPage" + clickedLink).fadeIn(transitionSpeed);
+                } else {
+                	selector.find(".simplePagerPage" + clickedLink).show();
+                }
+                
                 return false;
             });
         });
