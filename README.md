@@ -7,9 +7,12 @@ I came across a very simple plugin made as [a tutorial over at (jquery4u.com)](h
 
 I had some changes I needed to make to use it, and I couldn't find a shared respository for it.  It doesn't seem to be closed source, my guess is just that the author didn't think it needed to be published.  I think it does so I am publishing my changes to it.  I don't believe this to be against any copyright or rules, but if so please let me know.
 
-Limitations:
+## Limitations ##
 0. Items must be in a list
 0. Currently only one pager nav per page works correctly.  Plan to resolve this soon.
 
-Changelog:
-2012-09-10 - Initial addition to repo.
+
+## Changelog ##
+
+### 0.1.0 - 2012-09-10 ###
+* Initial addition to repo.
