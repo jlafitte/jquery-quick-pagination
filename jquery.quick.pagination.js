@@ -1,19 +1,20 @@
-/**
- * jQuery Quick Pagination v0.1.0
- * A lightweight pagination plugin for jQuery
- * Original starting point was from: http://www.jquery4u.com/tutorials/jquery-quick-pagination-list-items
- * However I wan't able to find if a repository to contribute to, or to fork, so I create a new one:
- * https://github.com/jlafitte/jquery-quick-pagination
- *
- * Please if anyone thinks this is incorrect, let me know and I will fix it.  Thanks.
+/*
+	jQuery Quick Pagination v0.1.0
+	A lightweight pagination plugin for jQuery
+	Based on work by  Sam Deering - http://www.jquery4u.com/tutorials/jquery-quick-pagination-list-items
+
+	Read more here: https://github.com/jlafitte/jquery-quick-pagination
+	
+	Basic Usage: jQuery(<list selector>).quickPagination();
  */
 (function ($) {
     $.fn.quickPagination = function (options) {
         var defaults = {
-            pageSize: 10,
-            currentPage: 1,
-            holder: null,
-            pagerLocation: "after"
+            pageSize: 10,			// How many items you want to show per page.
+            currentPage: 1,			// Starting page... normally you would probably leave this alone.
+            holder: null,			// Container to place the navigation
+            pagerLocation: "after"	// possible values are "before,after,both"
+            pagerType: "numbers"	// possible values are "numbers,backNext,both"
         };
         var options = $.extend(defaults, options);
         return this.each(function () {
