@@ -11,6 +11,7 @@
     $.fn.quickPagination = function (options) {
         var defaults = {
             pageSize: 10,	// How many items you want to show per page.
+            navigation: true,	// Prev/Next navigation buttons.
             currentPage: 1,	// Starting page... normally you would probably leave this alone.
             holder: null,	// Container to place the navigation.
             pagerLocation: "after",	// possible values are "before,after,both".  Will not do anything if you specified a container in the holder option.
@@ -37,7 +38,12 @@
             if (pageCounter <= 1) {
                 return;
             }
-            var pageNav = "<ul class='simplePagerNav'>";
+            if (navigation == true) {
+            	var pageNav = "<div class='navigationPrev'></div><ul class='simplePagerNav'>";
+            }
+            else {
+            	var pageNav = "<ul class='simplePagerNav'>";
+            }
             for (i = 1; i <= pageCounter; i++) {
                 if (i == options.currentPage) {
                     pageNav += "<li class='currentPage simplePageNav" + i + "'><a rel='" + i + "' href='#'>" + i + "</a></li>";
@@ -45,7 +51,12 @@
                     pageNav += "<li class='simplePageNav" + i + "'><a rel='" + i + "' href='#'>" + i + "</a></li>";
                 }
             }
-            pageNav += "</ul>";
+            if (navigation == true) {
+            	pageNav += "</ul><div class='navigationNext'></div>";
+            }
+            else {
+            	pageNav += "</ul>";
+            }
             if (!options.holder) {
                 switch (options.pagerLocation) {
                 case "before":
